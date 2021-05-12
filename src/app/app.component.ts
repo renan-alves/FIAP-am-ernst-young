@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faChartLine, faUserFriends, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'am-ernst-young';
+
+  faChartLine = faChartLine;
+  faUserFriends = faUserFriends;
+  faSearch = faSearch;
 }
