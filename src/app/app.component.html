@@ -6,13 +6,19 @@
           <img src="../assets/images/logo.png" height="64" width="64">
         </div>
         <div class="sidebar-icon">
-          <fa-icon [icon]="faChartLine" size="2x"></fa-icon>
+          <a class="dropdown-item" [routerLink]="['/dashboard']">
+            <fa-icon [icon]="faChartLine" size="2x"></fa-icon>
+          </a>
         </div>
         <div class="sidebar-icon">
-          <fa-icon [icon]="faUserFriends" size="2x"></fa-icon>
+          <a class="dropdown-item" [routerLink]="['/listaColaboradores']">
+            <fa-icon [icon]="faUserFriends" size="2x"></fa-icon>
+          </a>
         </div>
         <div class="sidebar-icon">
-          <fa-icon [icon]="faSearch" size="2x"></fa-icon>
+          <a class="dropdown-item" [routerLink]="['/colaborador']">
+            <fa-icon [icon]="faSearch" size="2x"></fa-icon>
+          </a>
         </div>
       </div>
     </div>
