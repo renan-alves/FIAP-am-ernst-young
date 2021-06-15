@@ -13,6 +13,8 @@ import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-c
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule

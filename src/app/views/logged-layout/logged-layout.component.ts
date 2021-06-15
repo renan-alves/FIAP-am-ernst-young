@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faChartLine, faUserFriends, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faChartLine, faUserFriends, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-logged-layout',
@@ -8,7 +10,10 @@ import { faChartLine, faUserFriends, faSearch } from '@fortawesome/free-solid-sv
 })
 export class LoggedLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
@@ -16,4 +21,11 @@ export class LoggedLayoutComponent implements OnInit {
   faChartLine = faChartLine;
   faUserFriends = faUserFriends;
   faSearch = faSearch;
+  faSignOutAlt = faSignOutAlt;
+
+  logout() {
+    console.log("logouit")
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
