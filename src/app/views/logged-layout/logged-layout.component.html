@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row d-flex">
+    <div id="sidebar" class="col-1">
+      <div class="flex-column">
+        <div class="pb-4">
+          <img src="../assets/images/logo.png" height="64" width="64">
+        </div>
+        <div class="sidebar-icon">
+          <a class="dropdown-item" [routerLink]="['/dashboard']">
+            <fa-icon [icon]="faChartLine" size="2x"></fa-icon>
+          </a>
+        </div>
+        <div class="sidebar-icon">
+          <a class="dropdown-item" [routerLink]="['/listaColaboradores']">
+            <fa-icon [icon]="faUserFriends" size="2x"></fa-icon>
+          </a>
+        </div>
+        <div class="sidebar-icon">
+          <a class="dropdown-item" [routerLink]="['/colaborador']">
+            <fa-icon [icon]="faSearch" size="2x"></fa-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="content" class="col-11">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
