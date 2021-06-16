@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('barCanvas') private barCanvas: ElementRef;
   @ViewChild('lineCanvas') private lineCanvas: ElementRef;
   @ViewChild('radarCanvas') private radarCanvas: ElementRef;
+  @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef;
 
   barChart: Chart;
   lineChart: Chart;
@@ -25,8 +26,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.barChartMethod();
-    this.lineChartMethod();
-    this.radarChartMethod();
+/*     this.lineChartMethod();
+    this.radarChartMethod(); */
+    this.doughnutChartMethod();
   }
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }]
       },
       options: {
+        indexAxis: 'y',
         scales: {
           yAxes: [{
             ticks: {
@@ -74,7 +77,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  lineChartMethod() {
+/*   lineChartMethod() {
     this.lineChart = new Chart(this.lineCanvas.nativeElement,
       {
         type: 'line',
@@ -135,5 +138,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
       }
     })
+  } */
+
+  doughnutChartMethod(){
+    this.doughnutCanvas = new Chart(this.doughnutCanvas.nativeElement,
+      {
+        type: 'doughnut',
+        responsive:true,
+        maintainAspectRatio: false,
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [{
+            label: 'My First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
+        }
+      }
+      
+    )
   }
 }

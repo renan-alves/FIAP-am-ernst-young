@@ -3,26 +3,26 @@
     <div id="sidebar" class="col-1">
       <div class="flex-column">
         <div class="pb-4">
-          <img src="../assets/images/logo.png" height="64" width="64">
+          <img src="../assets/images/logo-branco.png" height="64" width="64">
         </div>
         <div class="sidebar-icon">
           <a class="dropdown-item" [routerLink]="['/dashboard']">
-            <fa-icon [icon]="faChartLine" size="2x"></fa-icon>
+            <fa-icon class="icon-menu" [icon]="faChartLine" size="2x"></fa-icon>
           </a>
         </div>
         <div class="sidebar-icon">
           <a class="dropdown-item" [routerLink]="['/listaColaboradores']">
-            <fa-icon [icon]="faUserFriends" size="2x"></fa-icon>
+            <fa-icon class="icon-menu" [icon]="faUserFriends" size="2x"></fa-icon>
           </a>
         </div>
         <div class="sidebar-icon">
           <a class="dropdown-item" [routerLink]="['/colaborador']">
-            <fa-icon [icon]="faSearch" size="2x"></fa-icon>
+            <fa-icon class="icon-menu" [icon]="faSearch" size="2x"></fa-icon>
           </a>
         </div>
         <div class="sidebar-icon">
           <a class="dropdown-item" (click)="logout()">
-            <fa-icon [icon]="faSignOutAlt" size="2x"></fa-icon>
+            <fa-icon class="icon-menu" [icon]="faSignOutAlt" size="2x"></fa-icon>
           </a>
         </div>
       </div>
