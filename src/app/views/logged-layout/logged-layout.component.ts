@@ -24,7 +24,6 @@ export class LoggedLayoutComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
 
   logout() {
-    console.log("logouit")
     this.authService.logout();
     this.router.navigate(['/login']);
   }

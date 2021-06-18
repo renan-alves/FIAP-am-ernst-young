@@ -20,7 +20,6 @@ export class AuthService {
     }
 
     login(username: string, password: string) {
-        console.log("loguei")
         //Assuming users are provided the correct credentials.
         //In real app you will query the database to verify.
         this.isloggedIn = true;

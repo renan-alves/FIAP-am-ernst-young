@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,8 +13,10 @@ import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-c
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './views/home/home/home.component';
+import { ColobaradoresSinalizadosComponent } from './views/home/colobaradores-sinalizados/colobaradores-sinalizados.component';
+import { MinimalCardComponent } from './views/home/minimal-card/minimal-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     LoggedLayoutComponent,
     ListaColaboradoresComponent,
-    
+    HomeComponent,
+    ColobaradoresSinalizadosComponent,
+    MinimalCardComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,6 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
-  
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule { }

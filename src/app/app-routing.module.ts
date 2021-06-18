@@ -6,6 +6,7 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './services/auth.service';
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
+import { HomeComponent } from './views/home/home/home.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,13 +15,9 @@ const routes: Routes = [
     component: LoggedLayoutComponent,
     canActivateChild: [AuthGuard],
     children: [
-      {
-        path: '',
-        loadChildren: () => import('./views/home/home.module')
-          .then(m => m.HomeModule)    
-      },
       { path: 'listaColaboradores', component: ListaColaboradoresComponent },
       { path: 'colaborador', component: ColaboradorComponent },
+      { path: '', component: HomeComponent },
     ]
   },
   { path: '**', redirectTo: '' },

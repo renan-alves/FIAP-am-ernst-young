@@ -1,14 +1,25 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IEmployees } from 'src/app/interfaces/employees';
-import { EmployeesService } from 'src/app/services/employees/employees.service';
 import Chart from 'chart.js/auto';
 
 @Component({
-  selector: 'app-home',
+  selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.barChartMethod();
+/*     this.lineChartMethod();
+    this.radarChartMethod(); */
+    this.doughnutChartMethod();
+  }
+
   @ViewChild('barCanvas') private barCanvas: ElementRef;
   @ViewChild('lineCanvas') private lineCanvas: ElementRef;
   @ViewChild('radarCanvas') private radarCanvas: ElementRef;
@@ -18,25 +29,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   lineChart: Chart;
   radarChart: Chart;
 
-  employees: IEmployees[];
-
-  constructor(
-    private employeesService: EmployeesService
-  ) { }
-
-  ngAfterViewInit(): void {
-    this.barChartMethod();
-/*     this.lineChartMethod();
-    this.radarChartMethod(); */
-    this.doughnutChartMethod();
-  }
-
-  ngOnInit(): void {
-    this.employeesService.collection$().subscribe(employees => {
-      this.employees = employees;
-    })
-  }
-
+  
   barChartMethod() {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
@@ -156,8 +149,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             tension: 0.1
           }]
         }
-      }
-      
+      }      
     )
   }
 }
