@@ -17,6 +17,10 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './views/home/home/home.component';
 import { ColobaradoresSinalizadosComponent } from './views/home/colobaradores-sinalizados/colobaradores-sinalizados.component';
 import { MinimalCardComponent } from './views/home/minimal-card/minimal-card.component';
+import { SalarioMedioComponent } from './views/home/salario-medio/salario-medio.component';
+import { ColaboradoresDeptComponent } from './views/home/colaboradores-dept/colaboradores-dept.component';
+import { DistribuicaoColaboradoresComponent } from './views/home/distribuicao-colaboradores/distribuicao-colaboradores.component';
+import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { MinimalCardComponent } from './views/home/minimal-card/minimal-card.com
     ListaColaboradoresComponent,
     HomeComponent,
     ColobaradoresSinalizadosComponent,
-    MinimalCardComponent
+    MinimalCardComponent,
+    SalarioMedioComponent,
+    ColaboradoresDeptComponent,
+    DistribuicaoColaboradoresComponent,
+    BudgetAtualComponent
   ],
   imports: [
     BrowserModule,
