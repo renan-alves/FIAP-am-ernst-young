@@ -13,7 +13,7 @@ import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-c
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './views/home/home/home.component';
 import { ColobaradoresSinalizadosComponent } from './views/home/colobaradores-sinalizados/colobaradores-sinalizados.component';
 import { MinimalCardComponent } from './views/home/minimal-card/minimal-card.component';
@@ -21,6 +21,8 @@ import { SalarioMedioComponent } from './views/home/salario-medio/salario-medio.
 import { ColaboradoresDeptComponent } from './views/home/colaboradores-dept/colaboradores-dept.component';
 import { DistribuicaoColaboradoresComponent } from './views/home/distribuicao-colaboradores/distribuicao-colaboradores.component';
 import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SelectDropdownComponent } from './views/_shared/select-drop-down/select-drop-down.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.com
     SalarioMedioComponent,
     ColaboradoresDeptComponent,
     DistribuicaoColaboradoresComponent,
-    BudgetAtualComponent
+    BudgetAtualComponent,
+    SelectDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,10 @@ import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.com
     FormsModule,
     FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgSelectModule ,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
