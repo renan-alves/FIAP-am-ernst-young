@@ -513,7 +513,7 @@ export class SelectDropdownComponent implements OnInit, OnChanges {
     this.actionButtonClicked.emit(item);
   }
 
-  onFilter = (term: any, item: any) => {
+/*   onFilter = (term: any, item: any) => {
     // Termo digitado na pesquisa transformado em minusculo
     term = term.toLocaleLowerCase();
 
@@ -526,7 +526,7 @@ export class SelectDropdownComponent implements OnInit, OnChanges {
     // Retorna itens que a descrição contém o termo ou o id
     return itemDesc.includes(term) || itemCode.includes(term);
   };
-
+ */
   focus() {
     this.selectComponent.focus();
   }

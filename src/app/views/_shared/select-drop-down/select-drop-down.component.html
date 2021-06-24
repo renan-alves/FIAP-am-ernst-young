@@ -4,7 +4,7 @@
       class="custom"
       [items]="objectList"
       formControlName="{{ nameFormControl }}"
-      [searchFn]="onFilter"
+
       [multiple]="multipleSelect"
       [bindValue]="objectValue"
       [bindLabel]="objectCode"
@@ -62,8 +62,8 @@
       <!-- Template para exibição de itens selecionados em multiple select -->
       <ng-template ng-multi-label-tmp let-items="items" let-clear="clear" *ngIf="multipleSelect">
         <div class="ng-value" *ngFor="let item of items | slice: 0:showMaxSelectedItens">
-          <span class="ng-value-label">
-            {{ item[objectCode] + ' - ' + item[objectDescription] }}
+          <span class="ng-value-label" >
+            {{ item[objectCode] }}
           </span>
           <!-- Adiciona "x" no final para remoção -->
           <span class="ng-value-icon right" *ngIf="!disable" (click)="clear(item)" aria-hidden="true">×</span>
@@ -79,18 +79,10 @@
   
       <!-- Template para exibição de itens selecionados em single select -->
       <ng-template ng-label-tmp let-item="item">
-        <!-- Exibe só Código -->
-        <span class="ng-value-label" *ngIf="exibitionSelectedType === 0">
-          {{ item[objectCode] }}
-        </span>
-        <!-- Exibe só descrição -->
-        <span class="ng-value-label" *ngIf="exibitionSelectedType === 1">
-          {{ item[objectDescription] }}
-        </span>
-        <!-- Exibe Código + Descrição -->
-        <span class="ng-value-label" *ngIf="exibitionSelectedType === 2">
-          {{ item[objectCode] + ' - ' + item[objectDescription] }}
-        </span>
+      <!-- Exibe só Código -->
+      <span class="ng-value-label" *ngIf="exibitionSelectedType === 0">
+        {{ item[objectCode] }}
+      </span>
         <!-- Adiciona "x" no final para remoção -->
         <span class="ng-value-icon right" *ngIf="!disable" (click)="clear(item)" aria-hidden="true">×</span>
       </ng-template>
@@ -109,10 +101,8 @@
           />
   
           <label class="custom-control-label" *ngIf="styleCheckbox && !disable"></label>
-
-          <span class="item-dropdown-label">{{
-            item[objectCode] + ' - ' + item[objectDescription]
-          }}</span>
+        <!-- Somente Código -->
+        <span class="item-dropdown-label">{{ item[objectCode] }}</span>
   
           <button
             *ngIf="showActionButton && !disable"

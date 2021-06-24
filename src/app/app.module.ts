@@ -23,6 +23,7 @@ import { DistribuicaoColaboradoresComponent } from './views/home/distribuicao-co
 import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropdownComponent } from './views/_shared/select-drop-down/select-drop-down.component';
+import { TemplateFilterComponent } from './views/_shared/template-filter/template-filter.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SelectDropdownComponent } from './views/_shared/select-drop-down/select
     ColaboradoresDeptComponent,
     DistribuicaoColaboradoresComponent,
     BudgetAtualComponent,
-    SelectDropdownComponent
+    SelectDropdownComponent,
+    TemplateFilterComponent
   ],
   imports: [
     BrowserModule,

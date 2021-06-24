@@ -33,9 +33,10 @@ export class ListaColaboradoresComponent implements OnInit {
   ] as ColaboradorViewModel[];
 
   /**
-   * Lista de ID, Código e Descrição de Unidades Produtivas
+   * 
    */
   lstArea: MinimalViewModel[] = [];
+  lstCargo: MinimalViewModel[] = [];
 
   formFilter = this.fb.group({
     nome: ['', Validators.required],
@@ -43,17 +44,21 @@ export class ListaColaboradoresComponent implements OnInit {
     areas: [[]],
   });
 
+  /**
+   * Esconde table
+   */
+  hideTable = true;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.lstArea = [
-      { codigo: 'codigo1', descricao: 'descricao1' },
-      { codigo: 'codigo2', descricao: 'descricao2' },
-      { codigo: 'codigo3', descricao: 'descricao3' },
-      { codigo: 'codigo4', descricao: 'descricao4' },
-      { codigo: 'codigo5', descricao: 'descricao5' },
-      { codigo: 'codigo6', descricao: 'descricao6' },
-      { codigo: 'codigo7', descricao: 'descricao7' },
+      { codigo: 'codigo1' },
+      { codigo: 'codigo2' },
+    ]
+
+    this.lstCargo = [
+      { codigo: 'codigo1' },
+      { codigo: 'codigo2' },
     ]
   }
 

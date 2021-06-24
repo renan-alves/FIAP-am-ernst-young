@@ -1,32 +1,51 @@
-<div class="container-fluid pt-5 h-100">
-  <div class="row h-100">
-    <div class="col-12 h-100">
-      <div class="card" style="height:95%">
-        <form [formGroup]="formFilter" (ngSubmit)="onSubmit()">
-          <label for="nome">Nome: </label>
-          <input id="nome" type="text" formControlName="nome">
-        
-          <div class="col-12 col-md-8 col-lg-6 form-group">
-            <label>Área</label>
-            <select-drop-down
-              [objectList]="lstArea"
-              [objectValue]="'codigo'"
-              [objectCode]="'codigo'"
-              [objectDescription]="'descricao'"
-              [exibitionBoxListType]="2"
-              [exibitionSelectedType]="0"
-              [enableButtonsCheck]="true"
-              [styleCheckbox]="true"
-              [showMaxSelectedItens]="5"
-              [form]="formFilter"
-              [nameFormControl]="'areas'"
-            >
-            </select-drop-down>
-          </div>
-          <p>Complete the form to enable button.</p>
-          <button type="submit" [disabled]="!formFilter.valid">Submit</button>
-        </form>
-      </div>
-    </div>
+<!-- Filtro -->
+<div class="row ">
+  <div class="col-12 pb-5">
+    <template-filter #filterTemplate [form]="formFilter" [templateBody]="templateFiltro">
+    </template-filter>
   </div>
 </div>
+
+<!-- Template Filtro -->
+<ng-template #templateFiltro>
+  <form [formGroup]="formFilter">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <form [formGroup]="formFilter" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-3 form-group">
+                  <label>Nome </label>
+                  <input id="nome" type="text" class="form-control" formControlName="nome">
+                </div>
+                <div class="col-4 form-group">
+                  <label>Cargo</label>
+                  <select-drop-down [objectList]="lstArea" [objectValue]="'codigo'" [objectCode]="'codigo'"
+                    [objectDescription]="'descricao'" [exibitionBoxListType]="2" [exibitionSelectedType]="0"
+                    [enableButtonsCheck]="true" [styleCheckbox]="true" [showMaxSelectedItens]="5" [form]="formFilter"
+                    [nameFormControl]="'cargos'">
+                  </select-drop-down>
+                </div>
+                <div class="col-4 form-group">
+                  <label>Área</label>
+                  <select-drop-down [objectList]="lstCargo" [objectValue]="'codigo'" [objectCode]="'codigo'"
+                    [objectDescription]="'descricao'" [exibitionBoxListType]="2" [exibitionSelectedType]="0"
+                    [enableButtonsCheck]="true" [styleCheckbox]="true" [showMaxSelectedItens]="5" [form]="formFilter"
+                    [nameFormControl]="'areas'">
+                  </select-drop-down>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card" *ngIf="!hideTable">
+    </div>
+  </div>
