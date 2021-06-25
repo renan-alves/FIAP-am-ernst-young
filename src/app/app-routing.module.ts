@@ -1,4 +1,4 @@
-import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-colaboradores.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ColaboradorComponent } from './views/colaborador/colaborador.component';
@@ -7,6 +7,7 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './services/auth.service';
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
 import { HomeComponent } from './views/home/home/home.component';
+import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-colaboradores/lista-colaboradores.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

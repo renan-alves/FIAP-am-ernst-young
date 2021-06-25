@@ -9,7 +9,6 @@ import { AngularFirestoreModule} from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ColaboradorComponent } from './views/colaborador/colaborador.component';
-import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-colaboradores.component';
 import { LoggedLayoutComponent } from './views/logged-layout/logged-layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
@@ -24,6 +23,8 @@ import { BudgetAtualComponent } from './views/home/budget-atual/budget-atual.com
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropdownComponent } from './views/_shared/select-drop-down/select-drop-down.component';
 import { TemplateFilterComponent } from './views/_shared/template-filter/template-filter.component';
+import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-colaboradores/lista-colaboradores.component';
+import { TableColaboradoresComponent } from './views/lista-colaboradores/table-colaboradores/table-colaboradores.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TemplateFilterComponent } from './views/_shared/template-filter/templat
     DistribuicaoColaboradoresComponent,
     BudgetAtualComponent,
     SelectDropdownComponent,
-    TemplateFilterComponent
+    TemplateFilterComponent,
+    TableColaboradoresComponent
   ],
   imports: [
     BrowserModule,

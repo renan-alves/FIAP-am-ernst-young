@@ -1,7 +1,10 @@
 <!-- Filtro -->
 <div class="row ">
   <div class="col-12 pb-5">
-    <template-filter #filterTemplate [form]="formFilter" [templateBody]="templateFiltro">
+    <template-filter #filterTemplate 
+      [form]="formFilter" 
+      [templateBody]="templateFiltro" 
+      (AcaoFiltrar)="onFilter()">
     </template-filter>
   </div>
 </div>
@@ -47,5 +50,9 @@
 <div class="row">
   <div class="col-12">
     <div class="card" *ngIf="!hideTable">
-    </div>
+      <table-colaboradores
+        [tableColumns]="grid.columns"
+        [tableRows]="grid.rows">
+      </table-colaboradores>
   </div>
+</div>

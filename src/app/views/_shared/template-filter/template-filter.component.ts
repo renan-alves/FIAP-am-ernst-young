@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'template-filter',
@@ -8,9 +8,17 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 export class TemplateFilterComponent implements OnInit {
   // Implementação html que irá aparecer na parte superior
   @Input() templateBody: TemplateRef<any>;
+
+  // Executa ao clicar na ação de "filtrar"
+  @Output() AcaoFiltrar = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  Filtrar() {
+    this.AcaoFiltrar.emit();
   }
 
 }
