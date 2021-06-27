@@ -1,3 +1,52 @@
-<p>
-  table-colaboradores works!
-</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="cargo">
+    <th mat-header-cell *matHeaderCellDef> Cargo </th>
+    <td mat-cell *matCellDef="let element"> {{element.cargo}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="area">
+    <th mat-header-cell *matHeaderCellDef> Área </th>
+    <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="ultimoReajuste">
+    <th mat-header-cell *matHeaderCellDef> Último Reajuste </th>
+    <td mat-cell *matCellDef="let element"> {{element.ultimoReajuste}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="salario">
+    <th mat-header-cell *matHeaderCellDef> Salário </th>
+    <td mat-cell *matCellDef="let element"> {{element.salario}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="signal">
+    <th mat-header-cell *matHeaderCellDef> Signal </th>
+    <td mat-cell *matCellDef="let element"> 
+      <ng-container [ngSwitch]="element.signal">
+        <img *ngSwitchCase="signalEnum.Nivel1" src="../assets/images/signal.png" width="60px">
+        <img *ngSwitchCase="signalEnum.Nivel2" src="../assets/images/signal.png" width="60px">
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="teste">
+    <th mat-header-cell *matHeaderCellDef> Último Reajuste </th>
+    <td mat-cell *matCellDef="let element" (click)="redirectPage()"> teste </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

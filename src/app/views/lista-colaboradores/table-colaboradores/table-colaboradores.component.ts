@@ -1,32 +1,43 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TableColumnViewModel } from 'src/app/_models/Commom/TableColumnViewModel';
-import { TableRowViewModel } from 'src/app/_models/Commom/TableRowViewModel';
+import { Router } from '@angular/router';
+import { SignalEnum } from 'src/app/_enums/SignalEnum';
+import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
 @Component({
   selector: 'table-colaboradores',
   templateUrl: './table-colaboradores.component.html',
   styleUrls: ['./table-colaboradores.component.scss']
 })
+
 export class TableColaboradoresComponent implements OnInit {
+  displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'teste'];
+  signalEnum = SignalEnum;
+  dataSource: ColaboradorViewModel[];
 
-  // Lista com todos os itens da tabela
-  AllData: TableRowViewModel[] = [];
+  @Input() set colaboradores(colabs: ColaboradorViewModel[]) {
+    console.log(colabs);
+    this.dataSource = colabs;
+  };
 
-  // Dados da tabela
-  @Input()
-  get tableRows() {
-    return this.AllData;
+  constructor(
+    protected router: Router,
+  ) {}
+
+  ngOnInit() {}
+
+  redirectPage() {
+    console.log('teste');
+    this.router.navigate(['/colaborador'], {
+      /*       queryParams: {
+              controle: tryParseInt(cellClicked.cell.userData, null, 10),
+            }, */
+    });
   }
-  set tableRows(value: TableRowViewModel[]) {
-    this.AllData = value;
-  }
-
-  // Colunas da tabela
-  @Input() tableColumns: TableColumnViewModel[] = [];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

@@ -25,7 +25,9 @@ import { SelectDropdownComponent } from './views/_shared/select-drop-down/select
 import { TemplateFilterComponent } from './views/_shared/template-filter/template-filter.component';
 import { ListaColaboradoresComponent } from './views/lista-colaboradores/lista-colaboradores/lista-colaboradores.component';
 import { TableColaboradoresComponent } from './views/lista-colaboradores/table-colaboradores/table-colaboradores.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,10 @@ import { TableColaboradoresComponent } from './views/lista-colaboradores/table-c
     AngularFirestoreModule,
     NgSelectModule ,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatTableModule
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
