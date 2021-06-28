@@ -24,7 +24,7 @@
   <!-- Symbol Column -->
   <ng-container matColumnDef="ultimoReajuste">
     <th mat-header-cell *matHeaderCellDef> Último Reajuste </th>
-    <td mat-cell *matCellDef="let element"> {{element.ultimoReajuste}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.ultimoReajuste |  date:'dd/MM/yyyy'}} </td>
   </ng-container>
 
   <ng-container matColumnDef="salario">
@@ -42,9 +42,11 @@
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="teste">
-    <th mat-header-cell *matHeaderCellDef> Último Reajuste </th>
-    <td mat-cell *matCellDef="let element" (click)="redirectPage()"> teste </td>
+  <ng-container matColumnDef="redirect">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element" (click)="redirectPage(element)">
+      <fa-icon class="icon-table" [icon]="faUserAlt" size="1x"></fa-icon>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

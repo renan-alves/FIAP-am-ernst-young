@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { SignalEnum } from 'src/app/_enums/SignalEnum';
 import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
 
@@ -17,7 +18,8 @@ export interface PeriodicElement {
 })
 
 export class TableColaboradoresComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'teste'];
+  faUserAlt = faUserAlt;
+  displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
   signalEnum = SignalEnum;
   dataSource: ColaboradorViewModel[];
 
@@ -28,16 +30,18 @@ export class TableColaboradoresComponent implements OnInit {
 
   constructor(
     protected router: Router,
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  redirectPage() {
-    console.log('teste');
+  redirectPage(colaborador: ColaboradorViewModel) {
     this.router.navigate(['/colaborador'], {
-      /*       queryParams: {
-              controle: tryParseInt(cellClicked.cell.userData, null, 10),
-            }, */
+      queryParams: {
+        nome: colaborador.nome,
+        cargo: colaborador.cargo,
+        signal: colaborador.signal,
+        ultimoReajuste: colaborador.ultimoReajuste
+      },
     });
   }
 }

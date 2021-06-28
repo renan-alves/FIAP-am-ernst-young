@@ -28,6 +28,8 @@ import { TableColaboradoresComponent } from './views/lista-colaboradores/table-c
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,12 +55,13 @@ import {MatTableModule} from '@angular/material/table';
     FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     NgSelectModule ,
     FormsModule, 
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],

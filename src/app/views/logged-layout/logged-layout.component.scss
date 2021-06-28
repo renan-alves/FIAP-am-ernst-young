@@ -3,6 +3,7 @@
     padding: 2em 0;
     background-color: #3D3A3A;
     text-align: center;
+    position: relative;
   }
   
   #content {
@@ -15,4 +16,10 @@
 
   .icon-menu {
       color: white;
+  }
+
+  #bottom{
+    position:absolute;                  
+    bottom:0;                           
+    left:0;
   }
