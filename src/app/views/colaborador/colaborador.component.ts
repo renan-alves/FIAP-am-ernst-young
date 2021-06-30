@@ -57,11 +57,11 @@ export class ColaboradorComponent implements OnInit, AfterViewInit {
 
   getRouteParams(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params.signal);
       this.colaborador.nome = params.nome;
       this.colaborador.cargo = params.cargo;
       this.colaborador.signal = params.signal;
       this.colaborador.ultimoReajuste = params.ultimoReajuste;
+      this.colaborador.imagem = params.imagem;
     });
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, Validators } from '@angular/forms';
+import { getImages } from 'src/app/_commom/util';
 import { SignalEnum } from 'src/app/_enums/SignalEnum';
 import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
 import { MinimalViewModel } from 'src/app/_models/Commom/MinimalViewModel';
@@ -33,7 +35,9 @@ export class ListaColaboradoresComponent implements OnInit {
    * Esconde table
    */
   hideTable = true;
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,     
+    private afStorage: AngularFireStorage,) { }
 
 
   ngOnInit() {
@@ -59,13 +63,9 @@ export class ListaColaboradoresComponent implements OnInit {
       { id: '5', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
       { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
       { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
-      { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', area: 'IT', ultimoReajuste: new Date(), salario: 1000.00, signal: SignalEnum.Nivel1 },
     ] as ColaboradorViewModel[];
+
+    getImages(this.colaboradores, this.afStorage);
   }
 
   /**

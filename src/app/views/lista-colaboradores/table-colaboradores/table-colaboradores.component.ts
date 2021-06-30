@@ -19,7 +19,7 @@ export interface PeriodicElement {
 
 export class TableColaboradoresComponent implements OnInit {
   faUserAlt = faUserAlt;
-  displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
+  displayedColumns: string[] = [ 'nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
   signalEnum = SignalEnum;
   dataSource: ColaboradorViewModel[];
 
@@ -40,7 +40,8 @@ export class TableColaboradoresComponent implements OnInit {
         nome: colaborador.nome,
         cargo: colaborador.cargo,
         signal: colaborador.signal,
-        ultimoReajuste: colaborador.ultimoReajuste
+        ultimoReajuste: colaborador.ultimoReajuste,
+        imagem: colaborador.imagem,
       },
     });
   }

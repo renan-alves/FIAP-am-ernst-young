@@ -7,8 +7,10 @@
     <ng-container *ngFor="let colaborador of colaboradores; let index = index">
       <div class="list-group-item">
         <div class="row">
-          <img src="https://firebasestorage.googleapis.com/v0/b/am-ernst-young.appspot.com/o/{{colaborador.id}}.jpg?alt=media"/>
-          <div class="col-9">
+          <div class="col-3">
+            <img src="{{colaborador.imagem}}" alt="Avatar" class="img-avatar"/>
+          </div>
+          <div class="col-6 p-0">
             <span>{{colaborador.nome}}</span><br>
             <span>{{colaborador.cargo}}</span>
           </div>
