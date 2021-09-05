@@ -1,0 +1,27 @@
+<div class="card h-100">
+  <div class="card-header bg-white">
+    <h2 class="card-title">Colaboradores sinalizados</h2>
+  </div>
+
+  <div class="list-group list-group-flush">
+    <ng-container *ngFor="let colaborador of colaboradores; let index = index">
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-3">
+            <img src="{{colaborador.imagem}}" alt="Avatar" class="img-avatar"/>
+          </div>
+          <div class="col-6 p-0">
+            <span>{{colaborador.nome}}</span><br>
+            <span>{{colaborador.cargo}}</span>
+          </div>
+          <div class="col-3">
+            <ng-container [ngSwitch]="colaborador.signal">
+                <img *ngSwitchCase="signalEnum.Nivel1" src="../assets/images/signal.png" width="60px">
+                <img *ngSwitchCase="signalEnum.Nivel2" src="../assets/images/signal.png" width="60px">
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

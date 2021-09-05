@@ -1,0 +1,25 @@
+#sidebar {
+    min-height: 100vh;
+    padding: 2em 0;
+    background-color: #3D3A3A;
+    text-align: center;
+    position: relative;
+  }
+  
+  #content {
+    background-color: #F5F5F5;
+  }
+  
+  .sidebar-icon {
+    margin: 2em 0;
+  }
+
+  .icon-menu {
+      color: white;
+  }
+
+  #bottom{
+    position:absolute;                  
+    bottom:0;                           
+    left:0;
+  }

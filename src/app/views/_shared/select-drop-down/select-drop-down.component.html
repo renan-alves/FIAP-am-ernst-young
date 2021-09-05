@@ -1,0 +1,129 @@
+<div [formGroup]="form">
+    <ng-select
+      #selectComponent
+      class="custom"
+      [items]="objectList"
+      formControlName="{{ nameFormControl }}"
+      [multiple]="multipleSelect"
+      [bindValue]="objectValue"
+      [bindLabel]="objectCode"
+      [clearSearchOnAdd]="true"
+      [closeOnSelect]="closeOnSelect"
+      [placeholder]="fieldPlaceholder"
+      [searchable]="enableSearch"
+      [virtualScroll]="virtualScrollable"
+      [notFoundText]="notFoundText"
+      [clearAllText]="textClearAll"
+      [clearable]="!disable && enableClear"
+      [hideSelected]="hideSelected"
+      [maxSelectedItems]="maxSelectedItems"
+      [tabIndex]="tabIndex"
+      (add)="onAdd($event)"
+      (remove)="onRemove($event)"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (close)="onClose($event)"
+      (clear)="onClear($event)"
+      (focus)="onFocus($event)"
+      (search)="onSearch($event)"
+      (open)="onOpen($event)"
+      (scroll)="onScroll($event)"
+      (scrollToEnd)="onScrolledToEnd($event)"
+    >
+      <!-- Template para exibição dos botões de "Marcar todos e Desmarcar todos" -->
+      <ng-template ng-header-tmp *ngIf="enableButtonsCheck && multipleSelect && !disable">
+        <!-- Template para exibição dos botões de "Marcar todos e Desmarcar todos" -->
+        <label
+          for="chkAll"
+          *ngIf="form.get(nameFormControl)?.value?.length !== objectList?.length"
+          class="select-all-label"
+        >
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="chkAll" (click)="onSelectAll($event)" />
+            <label class="custom-control-label" for="chkAll"></label>
+            <span class="item-dropdown-label">Selecionar todos</span>
+          </div>
+        </label>
+  
+        <label
+          for="unchkAll"
+          *ngIf="form.get(nameFormControl)?.value?.length === objectList?.length"
+          class="select-all-label"
+        >
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="unchkAll" (click)="onUnselectAll($event)" checked />
+            <label class="custom-control-label" for="unchkAll"></label>
+            <span class="item-dropdown-label">Selecionar todos</span>
+          </div>
+        </label>
+      </ng-template>
+  
+      <!-- Template para exibição de itens selecionados em multiple select -->
+      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear" *ngIf="multipleSelect">
+        <div class="ng-value" *ngFor="let item of items | slice: 0:showMaxSelectedItens">
+          <span class="ng-value-label" >
+            {{ item[objectCode] }}
+          </span>
+          <!-- Adiciona "x" no final para remoção -->
+          <span class="ng-value-icon right" *ngIf="!disable" (click)="clear(item)" aria-hidden="true">×</span>
+        </div>
+  
+        <!-- Exibe botão informando quantidade a mais de itens selecionados -->
+        <div class="ng-value" *ngIf="items.length > showMaxSelectedItens">
+          <button (click)="toogleShowOnlySelected()" class="ng-value-label btn btn-outline-primary">
+            {{ items.length - showMaxSelectedItens }} {{ textToShowMore }}
+          </button>
+        </div>
+      </ng-template>
+  
+      <!-- Template para exibição de itens selecionados em single select -->
+      <ng-template ng-label-tmp let-item="item">
+      <!-- Exibe só Código -->
+      <span class="ng-value-label" *ngIf="exibitionSelectedType === 0">
+        {{ item[objectCode] }}
+      </span>
+        <!-- Adiciona "x" no final para remoção -->
+        <span class="ng-value-icon right" *ngIf="!disable" (click)="clear(item)" aria-hidden="true">×</span>
+      </ng-template>
+  
+      <!-- Exibição nos itens para selecionar(checkbox) opção de grupo -->
+      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+        <!-- Exibição nos itens para selecionar -->
+        <div [ngClass]="{ 'custom-control custom-checkbox': styleCheckbox && !disable }">
+          <input
+            id="item-{{ index }}"
+            class="custom-control-input"
+            type="checkbox"
+            [ngModel]="item$.selected"
+            [ngModelOptions]="{ standalone: true }"
+            *ngIf="styleCheckbox && !disable"
+          />
+  
+          <label class="custom-control-label" *ngIf="styleCheckbox && !disable"></label>
+        <!-- Somente Código -->
+        <span class="item-dropdown-label">{{ item[objectCode] }}</span>
+  
+          <button
+            *ngIf="showActionButton && !disable"
+            class="btn float-right item-dropdown-label"
+            [ngbTooltip]="actionButtonTooltip"
+            container="body"
+            (click)="onActionClicked($event, item)"
+          >
+            <i [ngClass]="actionIcon" style="vertical-align: top" class="fa-sm"></i>
+          </button>
+        </div>
+  
+        <!-- Exibe detalhes dos objetos na lista -->
+        <div *ngIf="showObjectDetails">
+          <small *ngFor="let detail of detailsObjectList; let last = last">
+            <b> {{ detail | titlecase }}: </b>
+            {{ item[detail] }} <span *ngIf="!last">|</span>
+          </small>
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+  
+  <mx-invalid-input-feedback [form]="form" [control]="getControl()"> </mx-invalid-input-feedback>
+  
