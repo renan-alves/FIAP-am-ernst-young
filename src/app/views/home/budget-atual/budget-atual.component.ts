@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 
@@ -8,6 +8,8 @@ import Chart from 'chart.js/auto';
   styleUrls: ['./budget-atual.component.scss']
 })
 export class BudgetAtualComponent implements OnInit, AfterViewInit {
+
+  @Input() jobLevelVersusQuantity: { jobLevel: string, Count: number }[];
 
   constructor() { }
 
@@ -20,14 +22,14 @@ export class BudgetAtualComponent implements OnInit, AfterViewInit {
   @ViewChild('verticalBarCanvas') private verticalBarCanvas: ElementRef;
 
   verticalBarChartMethod() {
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = this.jobLevelVersusQuantity.map(level => level.jobLevel);
     const backgroundColors = ['#fde51c'];
 
     const data = {
       labels: labels,
       datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        label: 'Nível x Quantidade de funcionários',
+        data: this.jobLevelVersusQuantity.map(count => count.Count),
         backgroundColor: backgroundColors,
         borderColor: backgroundColors,
         borderWidth: 1

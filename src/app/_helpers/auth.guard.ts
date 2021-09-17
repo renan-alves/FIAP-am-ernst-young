@@ -11,12 +11,10 @@ export class AuthGuard implements CanActivateChild {
 
     canActivateChild(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
-        const currentUser = this.authService.currentUserValue;
+        const currentUser = this.authService.getCurrentUser;
         if (currentUser) {
-            // logged in so return true
             return true;
         } else {
-            console.log('watch out mother fucker');
             this.router.navigate(["login"], { queryParams: { retUrl: route.url } });
             return false;
         }

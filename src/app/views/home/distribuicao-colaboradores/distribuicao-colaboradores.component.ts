@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -8,6 +8,8 @@ import Chart from 'chart.js/auto';
 })
 export class DistribuicaoColaboradoresComponent implements OnInit, AfterViewInit {
   @ViewChild('scatterCanvas') private scatterCanvas: ElementRef;
+  @Input() yearsVersusSalary: { x: number, y: number }[];
+
   constructor() { }
 
   ngOnInit() {
@@ -20,20 +22,8 @@ export class DistribuicaoColaboradoresComponent implements OnInit, AfterViewInit
   scatterChartMethod() {
     const data = {
       datasets: [{
-        label: 'Scatter Dataset',
-        data: [{
-          x: -10,
-          y: 0
-        }, {
-          x: 0,
-          y: 10
-        }, {
-          x: 10,
-          y: 5
-        }, {
-          x: 0.5,
-          y: 5.5
-        }],
+        label: 'Anos x Salário',
+        data: this.yearsVersusSalary,
         backgroundColor: 'rgb(255, 99, 132)'
       }],
     };

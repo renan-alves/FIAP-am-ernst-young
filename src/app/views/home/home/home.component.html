@@ -1,4 +1,6 @@
 <div class="container-fluid pt-4">
+  <h1>{{manager?.Department}}</h1>
+  <h2>Boas vindas, {{manager?.Name}}</h2>
   <div class="row">
     <div class="col-md-3">
       <colobaradores-sinalizados></colobaradores-sinalizados>
@@ -6,7 +8,7 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-3">
-          <minimal-card [title]="'Total de Colaboradores'" [description]="'82'">
+          <minimal-card [title]="'Total de Colaboradores'" [description]="employees?.length">
           </minimal-card>
         </div>
         <div class="col-md-3">
@@ -25,11 +27,11 @@
       <div class="row pt-3">
         <!-- Salario médio por departamento -->
         <div class="col-md-6">
-          <salario-medio></salario-medio>
+          <salario-medio *ngIf="salaryAverage.length > 0" [salaryAverage]="salaryAverage"></salario-medio>
         </div>
         <!-- Colaboradores por Depto -->
         <div class="col-md-6">
-          <colaboradores-dept></colaboradores-dept>
+          <colaboradores-dept *ngIf="employeesCount.length > 0" [employeesCount]="employeesCount"></colaboradores-dept>
         </div>
       </div>
     </div>
@@ -37,11 +39,11 @@
   <div class="row pt-3">
     <!-- Distribuição de colaboradores -->
     <div class="col-md-6">
-      <distribuicao-colaboradores></distribuicao-colaboradores>
+      <distribuicao-colaboradores *ngIf="yearsVersusSalary.length > 0" [yearsVersusSalary]="yearsVersusSalary"></distribuicao-colaboradores>
     </div>
     <!-- Budget atual por depto -->
     <div class="col-md-6">
-      <budget-atual></budget-atual>
+      <budget-atual *ngIf="jobLevelVersusQuantity.length > 0" [jobLevelVersusQuantity]="jobLevelVersusQuantity"></budget-atual>
     </div>
   </div>
 </div>

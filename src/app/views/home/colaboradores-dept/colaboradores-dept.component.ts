@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { Aspect6 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office';
 
 @Component({
   selector: 'colaboradores-dept',
@@ -8,6 +9,8 @@ import Chart from 'chart.js/auto';
 })
 export class ColaboradoresDeptComponent implements OnInit, AfterViewInit {
   @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef;
+
+  @Input() employeesCount: { jobRole: string, Count: number }[] = [];
 
   constructor() { }
 
@@ -19,12 +22,6 @@ export class ColaboradoresDeptComponent implements OnInit, AfterViewInit {
   }
 
   doughnutChartMethod() {
-    const backgroundColors = [
-      '#c03d3c',
-      '#0b5db5',
-      '#eab509',
-      '#737373'
-    ];
     this.doughnutCanvas = new Chart(this.doughnutCanvas.nativeElement,
       {
         type: 'doughnut',
@@ -32,14 +29,14 @@ export class ColaboradoresDeptComponent implements OnInit, AfterViewInit {
           maintainAspectRatio: false,
         },
         data: {
-          labels: ['Não', 'sei', 'o', 'que'],
+          labels: this.employeesCount.map(employees => employees.jobRole),
           datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81],
+            label: this.employeesCount.map(employees => employees.jobRole),
+            data: this.employeesCount.map(employees => employees.Count),
             fill: false,
             tension: 0.1,
-            backgroundColor: backgroundColors,
-            borderColor: backgroundColors,
+            backgroundColor: Aspect6,
+            borderColor: Aspect6,
           }]
         }
       }

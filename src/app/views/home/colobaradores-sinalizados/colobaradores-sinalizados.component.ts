@@ -13,13 +13,8 @@ export class ColobaradoresSinalizadosComponent implements OnInit {
   testeLista: any = [1, 2, 3];
 
   colaboradores = [
-    { id: '1', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-    { id: '2', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-/*     { id: '3', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-    { id: '4', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-    { id: '5', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-    { id: '6', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 },
-    { id: '7', nome: 'Jonas Goulart', cargo: 'escravo da sociedade', signal: SignalEnum.Nivel1 }, */
+    { id: '1', nome: 'Colaborador 1', cargo: 'Laboratory Technician', signal: SignalEnum.Nivel1, imagem: 'assets/images/avatar-padrao.png' },
+    { id: '2', nome: 'Colaborador 2', cargo: 'Human Resources', signal: SignalEnum.Nivel1, imagem: 'assets/images/avatar-padrao.png' }
   ] as ColaboradorMinimalViewModel[];
 
   signalEnum = SignalEnum;
@@ -28,6 +23,6 @@ export class ColobaradoresSinalizadosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-     getImages(this.colaboradores,this.afStorage);
+    //  getImages(this.colaboradores,this.afStorage);
   }
 }

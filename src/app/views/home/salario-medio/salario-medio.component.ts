@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -8,27 +8,30 @@ import Chart from 'chart.js/auto';
 })
 export class SalarioMedioComponent implements OnInit, AfterViewInit {
   @ViewChild('barCanvas') private barCanvas: ElementRef;
+
+  @Input() salaryAverage: { jobRole: string, SalaryAverage: number }[];
+
   constructor() { }
 
   ngOnInit() {
   }
+  
   ngAfterViewInit(): void {
     this.barChartMethod();
   }
-
-
+  
   barChartMethod() {
     const backgroundColors = [
       '#fde51c',
     ];
-
+    
     this.barCanvas = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'],
+        labels: this.salaryAverage.map(salary => salary.jobRole),
         datasets: [{
-          label: '# of Votes',
-          data: [200, 50, 30, 15, 20, 34],
+          label: 'Salário médio',
+          data: this.salaryAverage.map(salary => salary.SalaryAverage),
           backgroundColor: backgroundColors,
           borderColor: backgroundColors,
           borderWidth: 1

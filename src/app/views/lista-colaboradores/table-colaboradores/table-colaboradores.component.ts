@@ -19,14 +19,10 @@ export interface PeriodicElement {
 
 export class TableColaboradoresComponent implements OnInit {
   faUserAlt = faUserAlt;
-  displayedColumns: string[] = [ 'nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
+  displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
   signalEnum = SignalEnum;
-  dataSource: ColaboradorViewModel[];
 
-  @Input() set colaboradores(colabs: ColaboradorViewModel[]) {
-    console.log(colabs);
-    this.dataSource = colabs;
-  };
+  @Input() colaboradores: ColaboradorViewModel[];
 
   constructor(
     protected router: Router,

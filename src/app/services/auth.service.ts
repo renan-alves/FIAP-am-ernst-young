@@ -1,59 +1,56 @@
-
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { of } from 'rxjs/internal/observable/of';
-import { UserViewModel } from '../_models/UserViewModel';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase';
 
+@Injectable({
+  providedIn: 'root'
+})
 
-@Injectable()
 export class AuthService {
+  userData: firebase.User;
 
-    private isloggedIn: boolean;
-    private userName: string;
-    private currentUserSubject: BehaviorSubject<UserViewModel>;
-    public currentUser: Observable<UserViewModel>;
+  constructor(
+    private afAuth: AngularFireAuth
+  ) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user'));
+      } else {
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
+      }
+    })
+  }
 
-    constructor() {
-        this.isloggedIn = false;
-        this.currentUserSubject = new BehaviorSubject<UserViewModel>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
+  SignIn(email: string, senha: string): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.signInWithEmailAndPassword(email, senha);
+  }
 
-    login(username: string, password: string) {
-        //Assuming users are provided the correct credentials.
-        //In real app you will query the database to verify.
-        this.isloggedIn = true;
-        this.userName = username;
-        this.setLocalUserStorage({ usuario: username, token: "fake-token" } as UserViewModel);
-        return of(this.isloggedIn);
-    }
+  SignInAnonymous(): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.signInAnonymously()
+  }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-    }
+  SignUp(email: string, senha: string): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.createUserWithEmailAndPassword(email, senha);
+  }
 
-    public get currentUserValue(): UserViewModel {
-        return this.currentUserSubject.value;
-    }
+  ForgotPassword(form: { email: string }): Promise<void> {
+    return this.afAuth.sendPasswordResetEmail(form.email);
+  }
 
-    isUserLoggedIn(): boolean {
-        return this.isloggedIn;
-    }
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null && user.emailVerified !== false) ? true : false
+  }
 
-    isAdminUser(): boolean {
-        if (this.userName == 'Admin') {
-            return true;
-        }
-        return false;
-    }
+  get getCurrentUser(): firebase.User {
+    return JSON.parse(localStorage.getItem('user'));
+  }
 
-    private setLocalUserStorage(user: UserViewModel) {
-        // Monta o objeto com os detalhes do usuário e o token jwt
-
-        // Armazena o objeto no local storage do browser para que o usuário se mantenha logado mesmo com refreshes das páginas
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-    }
+  async SignOut(): Promise<void> {
+    await this.afAuth.signOut();
+    localStorage.removeItem('user');
+  }
 }

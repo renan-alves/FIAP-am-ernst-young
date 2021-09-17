@@ -6,8 +6,8 @@ import { FireService } from '../base/fire.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends BaseService<any>{
-  protected basePath: string = 'employees';
+export class DepartmentService extends BaseService<any>{
+  protected basePath: string = 'Departments';
 
   constructor(
     @Inject(FireService) protected fireService: FireService) {
