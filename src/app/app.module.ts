@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     BrowserAnimationsModule,
     MatSliderModule,
     MatTableModule,
+    AlertModule.forRoot()
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],

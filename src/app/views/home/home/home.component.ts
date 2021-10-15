@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 import { IEmployees } from 'src/app/interfaces/employees';
 import { IManagers } from 'src/app/interfaces/managers';
 import { AuthService } from 'src/app/services/auth.service';
 import { FireDocumentSnapshot, FireQuerySnapshot, FireService } from 'src/app/services/base/fire.service';
+import { faChevronCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'home',
@@ -20,6 +21,8 @@ export class HomeComponent implements OnInit {
   yearsVersusSalary: { x: number, y: number }[] = [];
   jobLevelVersusQuantity: { jobLevel: string, Count: number }[] = [];
 
+  faChevronCircleUp = faChevronCircleUp;
+
   constructor(private fireService: FireService,
     private authService: AuthService) { }
 
@@ -34,7 +37,7 @@ export class HomeComponent implements OnInit {
       mergeMap(department => this.getEmployeesByManagerDepartment(department))
     ).subscribe(employees => {
       this.employees = employees.docs.map(employee => employee.data());
-    
+
       this.calculateSalaryAverage();
       this.calculateEmployeesCountByjobRole();
       this.calculateYearsVersusSalary();
@@ -48,7 +51,8 @@ export class HomeComponent implements OnInit {
 
   getEmployeesByManagerDepartment(department: string): Observable<FireQuerySnapshot<IEmployees>> {
     return this.fireService.Firestore.collection<IEmployees>('employees')
-      .where('department', '==', department).get();
+      .where('department', '==', department)
+      .where('attrition', "==", "No").get();
   }
 
   calculateSalaryAverage(): void {

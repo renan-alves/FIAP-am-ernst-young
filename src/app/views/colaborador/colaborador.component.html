@@ -1,4 +1,9 @@
 <div class="container-fluid pt-4">
+  <alert type="success" [dismissible]="dismissible" [isOpen]="open" [dismissOnTimeout]="timeout">
+    <h4 class="alert-heading">Sucesso!</h4>
+    <p>Salário atualizado com sucesso!</p>
+  </alert>
+
   <div class="row">
     <div class="col-3">
       <div class="card">
@@ -8,7 +13,7 @@
               <div class="row">
                 <div class="col-12 d-flex justify-content-center">
                   <div style="width: 200px; height:200px;">
-                    <img src="{{colaborador.imagem}}" alt="Avatar" class=" w-100 h-100 img-avatar"/>
+                    <img src="{{colaborador.imagem}}" alt="Avatar" class=" w-100 h-100 img-avatar" />
                   </div>
                 </div>
               </div>
@@ -33,8 +38,74 @@
                 </div>
               </div>
               <div class="col-12">
-                <h3><strong>Último reajuste:</strong> {{colaborador.ultimoReajuste |  date:'dd/MM/yyyy'}}</h3>
+                <h3><strong>Último reajuste:</strong> {{colaborador.ultimoReajuste | date:'dd/MM/yyyy'}}</h3>
               </div>
+              <a class="col-12" (click)="toggleDetails()">{{detailsExpanded ? "Mostrar menos" : "Mostrar mais"}}</a>
+              <div *ngIf="detailsExpanded" class="col-12">
+                <ul class="list-group">
+                  <li class="list-group-item">Area: {{colaborador.area}}</li>
+                  <li class="list-group-item">Idade: {{colaborador.idade}}</li>
+                  <li class="list-group-item">Anos na empresa: {{colaborador.tempoDeEmpresa}}</li>
+                  <li class="list-group-item">Formação: {{colaborador.areaDeEstudo}}</li>
+                  <li class="list-group-item">Salário: {{colaborador.salario | currency:'BRL'}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-4">
+        <div class="card-body d-flex justify-content-center">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="row">
+                <div *ngIf="!salaryAdjustmentExpanded" (click)="toggleSalaryAdjustment()" class="col-12 text-center">
+                  <button type="button" class="btn btn-primary">Ajustar
+                    Salário</button>
+                </div>
+              </div>
+              <form *ngIf="salaryAdjustmentExpanded" [formGroup]="salaryForm" class="row">
+                <div class="col-12 form-group">
+                  <label for="currentSalary">Salário atual:</label>
+                  <input class="form-control" id="currentSalary" formControlName="currentSalary" type="number"
+                    disabled />
+                </div>
+                <div class="col-12 mt-2">
+                  Tipo de ajuste:
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-around">
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="adjustmentType" (change)="calculeNewSalary()"
+                      type="radio" id="absoluteRadio" value="absoluto" checked>
+                    <label class="form-check-label" for="absoluteRadio">
+                      Absoluto
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="adjustmentType" (change)="calculeNewSalary()"
+                      type="radio" id="percentualRadio" value="percentual">
+                    <label class="form-check-label" for="percentualRadio">
+                      Percentual
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 form-group">
+                  <label for="adjust">Valor:</label>
+                  <input (input)="calculeNewSalary($event.target.value)" formControlName="adjustmentValue"
+                    class="form-control" id="adjust" type="number" />
+                </div>
+                <div class="col-12 form-group my-2">
+                  <label for="newSalary">Novo salário:</label>
+                  <input class="form-control" formControlName="newSalary" id="newSalary" type="number" disabled />
+                </div>
+                <div class="col-6">
+                  <button type="button" (click)="toggleSalaryAdjustment()"
+                    class="btn btn-secondary w-100">Cancelar</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" (click)="saveNewSalary()" class="btn btn-primary w-100">Salvar</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -46,6 +117,163 @@
           <div class="chart-container" style="height: 75vh">
             <canvas #radarCanvas></canvas>
           </div>
+
+          <table class="table table-striped mt-2">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">{{employeeData?.name}}</th>
+                <th scope="col">Caracteristica</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>{{employeeData?.age}}</td>
+                <td>Idade</td>
+                <td>{{teamData?.age}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.businessTravel}}</td>
+                <td>Disponibilidade para viajar</td>
+                <td>{{teamData?.businessTravel}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.department}}</td>
+                <td>Departamento</td>
+                <td>{{teamData?.department}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.distanceFromHome}}</td>
+                <td>Distância de casa</td>
+                <td>{{teamData?.distanceFromHome}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.education}}</td>
+                <td>Educação</td>
+                <td>{{teamData?.education}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.educationField}}</td>
+                <td>Área de estudo</td>
+                <td>{{teamData?.educationField}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.environmentSatisfaction}}</td>
+                <td>Satisfação na empresa</td>
+                <td>{{teamData?.environmentSatisfaction}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.gender}}</td>
+                <td>Gênero</td>
+                <td>{{teamData?.gender}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.jobInvolvement}}</td>
+                <td>Interesse</td>
+                <td>{{teamData?.jobInvolvement}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.jobLevel}}</td>
+                <td>Nível</td>
+                <td>{{teamData?.jobLevel}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.jobRole}}</td>
+                <td>Função</td>
+                <td>{{teamData?.jobRole}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.jobSatisfaction}}</td>
+                <td>Satisfação no trabalho</td>
+                <td>{{teamData?.jobSatisfaction}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.maritalStatus}}</td>
+                <td>Status civil</td>
+                <td>{{teamData?.maritalStatus}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.monthlyIncome | currency:'BRL'}}</td>
+                <td>Renda mensal</td>
+                <td>{{teamData?.monthlyIncome | currency:'BRL'}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.monthlyRate | currency:'BRL'}}</td>
+                <td>Salário</td>
+                <td>{{teamData?.monthlyRate | currency:'BRL'}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.numCompaniesWorked}}</td>
+                <td>Número de empresas anteriores</td>
+                <td>{{teamData?.numCompaniesWorked}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.overTime}}</td>
+                <td>Hora extra</td>
+                <td>{{teamData?.overTime}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.percentSalaryHike}}</td>
+                <td>Percentual de aumento salarial</td>
+                <td>{{teamData?.percentSalaryHike}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.performanceRating}}</td>
+                <td>Avaliação de performance</td>
+                <td>{{teamData?.performanceRating}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.relationshipSatisfaction}}</td>
+                <td>Satisfação com a equipe</td>
+                <td>{{teamData?.relationshipSatisfaction}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.stockOptionLevel}}</td>
+                <td>Nível de opção de ações</td>
+                <td>{{teamData?.stockOptionLevel}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.team}}</td>
+                <td>Time</td>
+                <td>{{teamData?.team}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.totalWorkingYears}}</td>
+                <td>Anos trabalhados</td>
+                <td>{{teamData?.totalWorkingYears}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.trainingTimesLastYear}}</td>
+                <td>Números de treinos</td>
+                <td>{{teamData?.trainingTimesLastYear}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.workLifeBalance}}</td>
+                <td>Equilíbrio entre vida profissional</td>
+                <td>{{teamData?.workLifeBalance}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.yearsAtCompany}}</td>
+                <td>Anos na empresa</td>
+                <td>{{teamData?.yearsAtCompany}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.yearsInCurrentRole}}</td>
+                <td>Anos no cargo</td>
+                <td>{{teamData?.yearsInCurrentRole}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.yearsSinceLastPromotion}}</td>
+                <td>Última promoção</td>
+                <td>{{teamData?.yearsSinceLastPromotion}}</td>
+              </tr>
+              <tr class="text-center">
+                <td>{{employeeData?.yearsWithCurrManager}}</td>
+                <td>Anos com o gerente atual</td>
+                <td>{{teamData?.yearsWithCurrManager}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

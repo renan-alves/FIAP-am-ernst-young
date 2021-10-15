@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { FormBuilder, Validators } from '@angular/forms';
-import { forkJoin, Observable, of } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { forkJoin, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { IEmployees } from 'src/app/interfaces/employees';
 import { IManagers } from 'src/app/interfaces/managers';
 import { AuthService } from 'src/app/services/auth.service';
-import { FireDocumentSnapshot, FireQuery, FireQuerySnapshot, FireService } from 'src/app/services/base/fire.service';
-import { getImages } from 'src/app/_commom/util';
+import { FireDocumentSnapshot, FireQuerySnapshot, FireService } from 'src/app/services/base/fire.service';
 import { SignalEnum } from 'src/app/_enums/SignalEnum';
 import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
 import { MinimalViewModel } from 'src/app/_models/Commom/MinimalViewModel';
@@ -75,6 +73,7 @@ export class ListaColaboradoresComponent implements OnInit {
     this.formFilter.setValue({ 'areas': [department], nome: '', cargos: [] });
     return this.fireService.Firestore.collection<IEmployees>('employees')
       .where('department', '==', department)
+      .where('attrition', '==', 'No')
       .limit(10).get();
   }
 
@@ -82,13 +81,17 @@ export class ListaColaboradoresComponent implements OnInit {
     this.colaboradores = employees?.map((employee, index) => {
       return {
         id: employee.id,
-        nome: 'Nome do empregado ' + index,
+        nome: employee.name,
         cargo: employee.jobRole,
         area: employee.department,
         ultimoReajuste: new Date(),
         salario: employee.monthlyRate,
-        signal: SignalEnum.Nivel1,
-        imagem: 'assets/images/avatar-padrao.png'
+        signal: employee.alertLevel,
+        imagem: 'assets/images/avatar-padrao.png',
+        idade: employee.age,
+        tempoDeEmpresa: employee.yearsAtCompany,
+        team: employee.team,
+        areaDeEstudo: employee.educationField
       } as ColaboradorViewModel;
     });
   }
@@ -101,16 +104,27 @@ export class ListaColaboradoresComponent implements OnInit {
     const observables = [];
 
     if (nomeFilter) observables.push(
-      this.fireService.Firestore.collection<IEmployees>('employees').where('employeeName', '==', nomeFilter).get()
-    )
+      this.fireService.Firestore.collection<IEmployees>('employees')
+        .where('name', '==', nomeFilter)
+        .where('attrition', '==', 'No').limit(50).get()
+    );
 
     if (cargoFilter.length > 0) observables.push(
-      this.fireService.Firestore.collection<IEmployees>('employees').where('jobRole', 'in', cargoFilter).get()
-    )
+      this.fireService.Firestore.collection<IEmployees>('employees')
+        .where('jobRole', 'in', cargoFilter)
+        .where('attrition', '==', 'No').limit(50).get()
+    );
 
     if (areaFilter.length > 0) observables.push(
-      this.fireService.Firestore.collection<IEmployees>('employees').where('department', 'in', areaFilter).get()
-    )
+      this.fireService.Firestore.collection<IEmployees>('employees')
+        .where('department', 'in', areaFilter)
+        .where('attrition', '==', 'No').limit(50).get()
+    );
+
+    if (!nomeFilter && cargoFilter.length < 1 && areaFilter.length < 1) observables.push(
+      this.fireService.Firestore.collection<IEmployees>('employees')
+        .where('attrition', '==', 'No').get()
+    );
 
     forkJoin(observables).subscribe((snap: FireQuerySnapshot<IEmployees>[]) => {
 
@@ -125,9 +139,5 @@ export class ListaColaboradoresComponent implements OnInit {
 
       this.loadGridDataSource(result);
     })
-
-  }
-
-  onSubmit() {
   }
 }

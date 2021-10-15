@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { SignalEnum } from 'src/app/_enums/SignalEnum';
 import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface PeriodicElement {
   name: string;
@@ -22,6 +23,8 @@ export class TableColaboradoresComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'cargo', 'area', 'ultimoReajuste', 'salario', 'signal', 'redirect'];
   signalEnum = SignalEnum;
 
+  faExclamationCircle = faExclamationCircle;
+
   @Input() colaboradores: ColaboradorViewModel[];
 
   constructor(
@@ -32,13 +35,12 @@ export class TableColaboradoresComponent implements OnInit {
 
   redirectPage(colaborador: ColaboradorViewModel) {
     this.router.navigate(['/colaborador'], {
-      queryParams: {
-        nome: colaborador.nome,
-        cargo: colaborador.cargo,
-        signal: colaborador.signal,
-        ultimoReajuste: colaborador.ultimoReajuste,
-        imagem: colaborador.imagem,
-      },
+      queryParams: colaborador
     });
+  }
+
+  getColor(element: ColaboradorViewModel) {
+    const hue = (120 - (120 / .52 * (element.signal))).toString(10);
+    return ["hsl(", hue, ",100%,50%)"].join("");
   }
 }

@@ -45,8 +45,13 @@ export class BudgetAtualComponent implements OnInit, AfterViewInit {
             y: {
               beginAtZero: true
             }
+          },
+          plugins: {
+            legend: {
+              display: false,
+            }
           }
-        },
+        }
       }
     )
   }

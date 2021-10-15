@@ -26,10 +26,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@ng-select/ng-select": "^6.1.0",
+    "axios": "^0.21.4",
     "bootstrap": "^5.0.0",
     "chart.js": "^3.2.1",
     "chartjs-plugin-colorschemes": "^0.4.0",
     "firebase": "^8.6.0",
+    "ngx-bootstrap": "^7.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

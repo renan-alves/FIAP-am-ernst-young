@@ -14,11 +14,8 @@
             <span>{{colaborador.nome}}</span><br>
             <span>{{colaborador.cargo}}</span>
           </div>
-          <div class="col-3">
-            <ng-container [ngSwitch]="colaborador.signal">
-                <img *ngSwitchCase="signalEnum.Nivel1" src="../assets/images/signal.png" width="60px">
-                <img *ngSwitchCase="signalEnum.Nivel2" src="../assets/images/signal.png" width="60px">
-            </ng-container>
+          <div class="col-3 d-flex align-items-center">
+            <fa-icon [icon]="faExclamationCircle" [styles]="{'color': getColor(colaborador)}" size="2x"></fa-icon>
           </div>
         </div>
       </div>

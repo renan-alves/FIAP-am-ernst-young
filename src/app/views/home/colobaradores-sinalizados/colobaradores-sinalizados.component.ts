@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { getImages } from 'src/app/_commom/util';
+import { IEmployees } from 'src/app/interfaces/employees';
+import { FireService } from 'src/app/services/base/fire.service';
 import { SignalEnum } from 'src/app/_enums/SignalEnum';
 import { ColaboradorMinimalViewModel } from 'src/app/_models/ColaboradorMinimalViewModel';
+import { ColaboradorViewModel } from 'src/app/_models/ColaboradorViewModel';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'colobaradores-sinalizados',
@@ -10,19 +12,36 @@ import { ColaboradorMinimalViewModel } from 'src/app/_models/ColaboradorMinimalV
   styleUrls: ['./colobaradores-sinalizados.component.scss']
 })
 export class ColobaradoresSinalizadosComponent implements OnInit {
-  testeLista: any = [1, 2, 3];
+  faExclamationCircle = faExclamationCircle;
 
-  colaboradores = [
-    { id: '1', nome: 'Colaborador 1', cargo: 'Laboratory Technician', signal: SignalEnum.Nivel1, imagem: 'assets/images/avatar-padrao.png' },
-    { id: '2', nome: 'Colaborador 2', cargo: 'Human Resources', signal: SignalEnum.Nivel1, imagem: 'assets/images/avatar-padrao.png' }
-  ] as ColaboradorMinimalViewModel[];
+  colaboradores: ColaboradorMinimalViewModel[];
 
   signalEnum = SignalEnum;
   constructor(
-    private afStorage: AngularFireStorage,
+    private fireService: FireService
   ) { }
 
   ngOnInit() {
-    //  getImages(this.colaboradores,this.afStorage);
+    this.fireService.Firestore.collection("employees")
+      .where("attrition", "==", "No")
+      .orderBy("alertLevel", "desc")
+      .limit(5)
+      .get().subscribe(employeeSnap => {
+        const data = employeeSnap.docs.map(e => Object.assign(e.data(), { id: e.ref.id } as IEmployees & { id: string }));
+        this.colaboradores = data.map(d => {
+          return {
+            id: d.id,
+            nome: d.name,
+            cargo: d.jobRole,
+            signal: d.alertLevel,
+            imagem: 'assets/images/avatar-padrao.png'
+          }
+        })
+      })
+  }
+
+  getColor(element: ColaboradorViewModel) {
+    const hue = (120 - (120 / .52 * (element.signal))).toString(10);
+    return ["hsl(", hue, ",100%,50%)"].join("");
   }
 }

@@ -1,5 +1,6 @@
 export interface IEmployees {
   age: number;
+  alertLevel: number;
   attrition: string;
   businessTravel: string;
   dailyRate: number;
@@ -18,6 +19,7 @@ export interface IEmployees {
   jobRole: string;
   jobSatisfaction: number;
   maritalStatus: string;
+  name: string;
   monthlyIncome: number;
   monthlyRate: number;
   numCompaniesWorked: number;
@@ -28,6 +30,7 @@ export interface IEmployees {
   relationshipSatisfaction: number;
   standardHours: number;
   stockOptionLevel: number;
+  team: number;
   totalWorkingYears: number;
   trainingTimesLastYear: number;
   workLifeBalance: number;

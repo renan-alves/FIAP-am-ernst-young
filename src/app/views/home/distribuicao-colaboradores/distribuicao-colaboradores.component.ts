@@ -38,6 +38,20 @@ export class DistribuicaoColaboradoresComponent implements OnInit, AfterViewInit
               type: 'linear',
               position: 'bottom'
             }
+          },
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              displayColors: false,
+              callbacks: {
+                label: (context) => {
+                  const {x, y} = context.element.parsed;
+                  return `${x} anos x R$ ${y}`;
+                }
+              }
+            }
           }
         }
       }
